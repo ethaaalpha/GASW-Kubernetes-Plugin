@@ -4,16 +4,16 @@
 
     <groupId>fr.insalyon.creatis</groupId>
     <artifactId>gasw-kubernetes-plugin</artifactId>
-    <version>0.0.1</version>
+    <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>GASW-Kubernetes-Plugin</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <gasw-version>3.12.0-SNAPSHOT</gasw-version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <gasw-version>4.3</gasw-version>
     </properties>
 
     <licenses>
@@ -65,27 +65,17 @@
 		<dependency>
             <groupId>io.kubernetes</groupId>
             <artifactId>client-java</artifactId>
-            <version>21.0.0</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-databind</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.fasterxml.jackson.core</groupId>
-					<artifactId>jackson-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.code.json</groupId>
-					<artifactId>gson</artifactId>
-				</exclusion>
-			</exclusions>
+            <version>24.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.14.0</version>
         </dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.17.2</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
             <groupId>fr.insalyon.creatis</groupId>
@@ -97,7 +87,6 @@
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
 		    <version>1.18.34</version>
-		    <scope>provided</scope>
 		</dependency>
     </dependencies>
 

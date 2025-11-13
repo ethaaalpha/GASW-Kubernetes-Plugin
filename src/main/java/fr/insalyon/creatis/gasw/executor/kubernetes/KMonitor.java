@@ -12,9 +12,9 @@ import fr.insalyon.creatis.gasw.executor.kubernetes.config.KConstants;
 import fr.insalyon.creatis.gasw.executor.kubernetes.internals.KJob;
 import fr.insalyon.creatis.gasw.executor.kubernetes.internals.KManager;
 import io.kubernetes.client.openapi.ApiException;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j
+@Slf4j
 final public class KMonitor extends GaswMonitor {
 
     private boolean stop;
@@ -106,7 +106,7 @@ final public class KMonitor extends GaswMonitor {
                 jobDAO.update(job);
             }
         } catch (DAOException e) {
-            log.error(e);
+            log.error("Exception while updating job", e);
         }
     }
 

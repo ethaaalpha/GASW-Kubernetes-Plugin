@@ -15,10 +15,10 @@ import io.kubernetes.client.util.Config;
 import io.kubernetes.client.util.credentials.AccessTokenAuthentication;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
-@Log4j
+@Slf4j
 @NoArgsConstructor
 public class KConfiguration {
 
@@ -71,7 +71,7 @@ public class KConfiguration {
             Configuration.setDefaultApiClient(client);
             defineApis(client);
         } catch (IOException e) {
-            log.error(e.getStackTrace(), e);
+            log.error("Error while creating local client", e);
             throw new GaswException("Client creation failed");
         }
     }

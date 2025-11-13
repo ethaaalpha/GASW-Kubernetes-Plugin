@@ -7,9 +7,9 @@ import fr.insalyon.creatis.gasw.GaswException;
 import fr.insalyon.creatis.gasw.GaswInput;
 import fr.insalyon.creatis.gasw.execution.GaswSubmit;
 import fr.insalyon.creatis.gasw.executor.kubernetes.internals.KManager;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j
+@Slf4j
 public class KSubmit extends GaswSubmit {
 
     final private KManager manager;

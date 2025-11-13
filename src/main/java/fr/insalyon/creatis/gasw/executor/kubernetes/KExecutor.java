@@ -1,5 +1,8 @@
 package fr.insalyon.creatis.gasw.executor.kubernetes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.insalyon.creatis.gasw.GaswConfiguration;
 import fr.insalyon.creatis.gasw.GaswException;
 import fr.insalyon.creatis.gasw.GaswInput;
@@ -8,9 +11,6 @@ import fr.insalyon.creatis.gasw.executor.kubernetes.config.KConstants;
 import fr.insalyon.creatis.gasw.executor.kubernetes.internals.KManager;
 import fr.insalyon.creatis.gasw.plugin.ExecutorPlugin;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 @PluginImplementation
@@ -54,7 +54,7 @@ public class KExecutor implements ExecutorPlugin {
     }
 
     @Override
-    public void terminate() throws GaswException {
+    public void terminate(boolean force) throws GaswException {
         // Plugin
         manager.destroy();
 

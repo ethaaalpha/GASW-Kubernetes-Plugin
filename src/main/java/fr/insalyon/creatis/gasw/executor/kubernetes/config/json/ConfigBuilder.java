@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import fr.insalyon.creatis.gasw.executor.kubernetes.config.json.properties.KConfig;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j
+@Slf4j
 @RequiredArgsConstructor
 public class ConfigBuilder {
 
