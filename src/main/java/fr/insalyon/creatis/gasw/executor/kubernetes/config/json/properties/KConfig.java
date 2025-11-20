@@ -11,13 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class KConfig {
 
-    @JsonProperty(value = "k8sAddress", required = true)
-    private String k8sAddress;
-
-    @JsonProperty(value = "k8sToken")
-    private String k8sToken;
-
-    @JsonProperty(value = "k8sKubeConfig")
+    @JsonProperty(value = "k8sConfig")
     private String k8sKubeConfig;
 
     @JsonProperty(value = "k8sNamespace", required = true)

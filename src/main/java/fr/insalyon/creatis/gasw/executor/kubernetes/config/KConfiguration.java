@@ -6,13 +6,14 @@ import fr.insalyon.creatis.gasw.GaswException;
 import fr.insalyon.creatis.gasw.executor.kubernetes.config.json.ConfigBuilder;
 import fr.insalyon.creatis.gasw.executor.kubernetes.config.json.properties.KConfig;
 import io.kubernetes.client.openapi.ApiClient;
+import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.BatchV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.apis.StorageV1Api;
-import io.kubernetes.client.util.ClientBuilder;
+import io.kubernetes.client.openapi.apis.VersionApi;
+import io.kubernetes.client.openapi.models.VersionInfo;
 import io.kubernetes.client.util.Config;
-import io.kubernetes.client.util.credentials.AccessTokenAuthentication;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,30 +67,23 @@ public class KConfiguration {
      */
     private void createLocalClient() throws GaswException {
         try {
+            final int timeout = config.getOptions().getTimeoutInMillis();
             final ApiClient client = Config.fromConfig(config.getK8sKubeConfig());
+
+            client.setReadTimeout(timeout);
+            client.setWriteTimeout(timeout);
+            client.setConnectTimeout(timeout);
 
             Configuration.setDefaultApiClient(client);
             defineApis(client);
-        } catch (IOException e) {
-            log.error("Error while creating local client", e);
+
+            // check a VERSION request to verify connection
+            VersionInfo info = new VersionApi(client).getCode().execute();
+            log.info("Connected to k8s cluster with version: {}", info.getGitVersion());
+
+        } catch (IOException | ApiException e) {
+            log.error("Error while creating local client (check the connection to the k8s cluster)", e);
             throw new GaswException("Client creation failed");
         }
-    }
-
-    /**
-     * To use in production mode with generated K8s credentials
-     * 
-     * @implNote You should have an admin access to the cluster otherwise bad things
-     *           could happen.
-     */
-    private void createRemoteClient() {
-        final ApiClient client = new ClientBuilder()
-                .setBasePath(config.getK8sAddress())
-                .setVerifyingSsl(false) // may need to change in production !
-                .setAuthentication(new AccessTokenAuthentication(config.getK8sToken()))
-                .setCertificateAuthority(null) // may need to change in production !
-                .build();
-
-        defineApis(client);
     }
 }

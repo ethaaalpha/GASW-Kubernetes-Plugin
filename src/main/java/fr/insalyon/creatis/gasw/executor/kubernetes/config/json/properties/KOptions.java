@@ -28,4 +28,7 @@ public class KOptions {
 
     @JsonProperty("storageClassName")
     private String storageClassName = "";
+
+    @JsonProperty("timeoutInMillis")
+    private int timeoutInMillis = 10000;
 }
